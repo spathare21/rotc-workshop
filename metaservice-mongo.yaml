@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: metadata-mongo
+spec:
+ containers:
+  - name: metadata-pod-mongo
+    image: sunitparekh/metadata:v2.0
+    env: 
+     - name: MONGODB_URI
+       value: mongodb://mongo/metadata
+

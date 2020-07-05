@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: metadata-deployment
+ annotations:
+    kubernetes.io/change-cause: "Adding annotations change demo"
+spec:
+ replicas: 3
+ selector:
+  matchLabels:
+   app: metadata-deploy
+ template:
+  metadata: 
+   labels:
+    app: metadata-deploy   
+  spec:
+   containers:
+    - name: metadeploy
+      image: sunitparekh/metadata:v1.0
+      env:
+        - name: VERSION
+          value: "3.0"
+
+
+
+
+
+## kubectl rollout history deployment metadata-deployment ger annoations after apply 

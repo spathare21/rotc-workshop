@@ -1,0 +1,42 @@
+Deployment Exercise :
+
+
+metaservice-deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: metadata-deployment
+spec:
+ replicas: 3
+ selector:
+  matchLabels:
+   app: metadata-deploy
+ template:
+  metadata: 
+   labels:
+    app: metadata-deploy   
+  spec:
+   containers:
+    - name: metadeploy
+      image: sunitparekh/metadata:v1.0
+      env:
+        - name: VERSION
+          value: "1.0"
+
+
+
+
+- kubectl apply -f metaservice-deployment.yaml
+- kubectl get Deployment
+- kubectl get rs 
+- kubectl get pods
+- kubectl describe pod pod_name and check version
+- change VERSION in file and then again do apply Deployment
+- kubectl apply -f metaservice-deployment.yaml
+- check for change in version and pods
+- kubectl get pods  (as there is change it will terminate 1 pod and create 1 new pod)
+- kubectl describe pod pod_name check version again
+- kubectl rollout history deployment metadata-deployment   (it will show history)
+- kubectl rollout undo deployment metadata-deployment   (it will undo current state and deploy last revision)
+- kubectl rollout history deployment metadata-deployment --revision=3    (deploy/rollout specific revision )

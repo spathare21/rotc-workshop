@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+spec:  
+  replicas: 5
+  selector:
+    matchLabels:
+      app: mongo-deploy
+  template:
+    metadata: 
+      labels:
+        app: mongo-deploy
+    spec:
+     containers:
+      - name: mongo-deploy-pod
+        image: mongo
+        env:
+          - name: PORT
+            value: "27017"
+          - name: VERSION 
+            value: "10.1" 
+
+
+
+# kubectl apply -f filename
+# kubectl get deploy
+# kubectl get rs
+# kubectl get pods 

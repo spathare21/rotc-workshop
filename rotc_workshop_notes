@@ -166,7 +166,27 @@ Services :
 
 Deployments : 
 
+A Deployment is a higher-level concept that manages ReplicaSets and provides declarative upgrades and rollbacks to pods.
 
+-  What is missing in ReplicaSets 
+-- Updates with zero downtime (rolling update)
+-- Rollbacks
+- Rolling updates/upgrade it will have ReplicaSets R1 and R2 will terminate 1 pod in R1 and spawn 1 pod in R2 like wise it will do updates/upgrade
+- Rollback
+-- R1 and R2 Delete 1 pod in R2 and spawn in R1 likewise it will rollback all pods/changes
+- Problem with ReplicaSet is if we deploy new spec changes it does not get automatically deploy new one we need to delete pods and deploy rs again
+- To solve above problem we have to use Deployments 
+
+- kubectl get deploy 
+- kubectl get rs (deployment creates replicaSets and let deploment manages replicasets)
+- kubectl rollout --help
+- kubectl rollout history deployment dobby 
+- kubectl rollout undo deployment dobby (will rollback last deployment version)
+- kubectl rollout deployment dobby --revision=6
+
+
+- Deployment with annotation
+- Deployment with strategy
+- kubectl sclae deployment do by --replicas=6
+- deployment recreate - all pods will terminate and all will be recreating and it will have downtime for application
 - 
-
-

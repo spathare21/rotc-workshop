@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: metadata-deployment
+spec:
+ replicas: 10
+ strategy:
+  type: RollingUpdate
+  rollingUpdate: 
+    maxSurge: 10%
+    maxUnavailable: 10%
+ selector:
+  matchLabels:
+   app: metadata-deploy
+ template:
+  metadata: 
+   labels:
+    app: metadata-deploy   
+  spec:
+   containers:
+    - name: metadeploy
+      image: sunitparekh/metadata:v1.0
+      env:
+        - name: VERSION
+          value: "2.0"

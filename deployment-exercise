@@ -40,3 +40,5 @@ spec:
 - kubectl rollout history deployment metadata-deployment   (it will show history)
 - kubectl rollout undo deployment metadata-deployment   (it will undo current state and deploy last revision)
 - kubectl rollout history deployment metadata-deployment --revision=3    (deploy/rollout specific revision )
+- kubectl port-forward pod_name 9999:8080 
+- curl localhost:9999/actuator/health

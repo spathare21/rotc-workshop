@@ -189,4 +189,26 @@ A Deployment is a higher-level concept that manages ReplicaSets and provides dec
 - Deployment with strategy
 - kubectl sclae deployment do by --replicas=6
 - deployment recreate - all pods will terminate and all will be recreating and it will have downtime for application
-- 
+
+
+
+Volume :
+
+- emptyDir 
+  - Created at pod creation time and when mounteed accessible by all container in pod 
+  - Help with sharing data across containers withing pod
+
+- hostPath
+  - mounted inside container pod 
+  - data retained on node even after pod goes down 
+  - data is not available if pod schedule into another node 
+  - can't save data from node outage
+- awsElasticBlockStore
+ - on the cloud save outage node 
+
+ 
+
+Config Map and Secrets :
+
+
+

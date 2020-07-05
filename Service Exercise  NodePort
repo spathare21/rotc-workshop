@@ -1,0 +1,41 @@
+Service Exercise  NodePort
+
+Metadata-service.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+ name: exercise-metadata
+ labels:
+   app: metadata
+spec:
+ containers:
+  - name: exercise-service
+    image: sunitparekh/metadata:v1.0
+    ports:
+      - containerPort: 8080
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+ name: metadata-service
+spec:
+  type: NodePort
+  selector:
+      app: metadata
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    nodePort: 30003
+
+- Kubectl apply -f Metadata-service.yaml
+- Kubectl get svc
+- Kubectl get pods
+- Minikube ip (get ip of master i.e minikube cluster)
+- Curl or hit from host browers : http://192.168.64.4:30003/actuator/info
+- curl --header "Content-Type: application/json"  --request POST --data '{"group":"sunitparekh","name":"city","value":"Pune"}' http://192.168.64.4:30003/metadata
+- curl http://node-ip:nodeport/metadata/

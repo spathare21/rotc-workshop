@@ -1,0 +1,37 @@
+Liveness Probe 
+
+replicasetLivenessProbe.yaml
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+ name: metadata-rs
+spec:
+ replicas: 2
+ selector:
+  matchLabels:
+   app: metadata-pod
+ template:
+  metadata: 
+   labels:
+    app: metadata-pod   
+  spec:
+   containers:
+    - name: exercise2
+      image: sunitparekh/metadata:v1.0
+      livenessProbe:
+        httpGet:
+          path: actuator/health
+          port: 8080
+        initialDelaySeconds : 10
+        periodSeconds: 1
+
+
+- Kubectl apply -f replicasetLivenessProbe.yaml
+- Kubect get pods 
+- Kubectl describe pod pod_name (to get IP. Of pod)
+- Kubectl exec pod pod_name -it - - sh  or do minikube ssh  or kubectl port-forward pod_name 9090:8080
+POST to create an meta entry in the database
+- curl --header "Content-Type: application/json" --request POST --data '{"group":"sunitparekh","name":"city","value":"Pune"}' http://172.17.0.5:8080/metadata 
+GET all meta entry posted in step 1
+- curl http://pod-ip:8080/metadata/

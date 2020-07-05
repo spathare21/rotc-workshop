@@ -1,0 +1,172 @@
+K8s 
+
+- minikube delete -p ''
+- minikube start --memory 6000 --cpus=4 --driver=hyperkit
+- minikube status
+- minikube stop
+- minikube delete
+
+Start a cluster using the hyperkit driver:
+minikube start --driver=hyperkit
+To make hyperkit the default driver:
+minikube config set driver hyperkit
+
+
+
+Target /usr/local/bin/kubectl
+already exists. You may want to remove it:
+  rm '/usr/local/bin/kubectl'
+
+To force the link and overwrite all conflicting files:
+  brew link --overwrite kubernetes-cli
+
+To list all files that would be deleted:
+  brew link --overwrite --dry-run kubernetes-cli
+
+
+HyperKit installation
+* If Docker for Desktop is installed, you already have HyperKit
+* Otherwise, if you have Brew Package Manager, run:
+brew install hyperkit
+* As a final alternative, you may Install HyperKit from GitHub
+Usage
+Start a cluster using the hyperkit driver:
+minikube start --driver=hyperkit
+To make hyperkit the default driver:
+minikube config set driver hyperkit
+
+
+
+
+Container Runtimes :
+
+- Docker, rocket, cri.o 
+- K8s, Mesos
+
+
+Kubectl - it is kubernetes client used to communicate with k8s cluster
+
+
+- Kubectl version --short  (get client and server version only)
+- Kubectl get pods
+- Kubectl get pods -o wide
+- Kubectl get nodes 
+- Kubectl get nodes -o wide
+
+Use specific context 
+    - Kubectl config use-context minikube(context name)
+
+List all namespace (virtual seperation of pods)
+- kubectl get pods --all-namespaces
+
+All components from k8s control plane (etc/coredns/apiserver/schedulers) or master are running as pods in kube-system namespaces
+
+Set namespace as default 
+
+- Kubectl config set-context  --current --namespace=<namespace_name>
+
+Apply created file 
+
+- Kubectl apply -f file.yaml. or 
+- Kubectl create -f file.yaml
+      — create first time creation and when you have to update it kubectl update
+     - apply - it will create if container is not exits and update if already exits 
+
+Documentation : 
+- Kubectl explain pods
+- Kubectl explain pod.metadata
+- Kubectl explain pod.metadata.name
+
+
+When we create pods using kubectl create -f filename.yaml or kubectl apply -f filename.yaml
+ - apiserver - store in etcd - scheduler - pick node - contact api server - talk to kubeclt and create pod in node 
+
+
+- Kubectl create -f file.yaml
+- Kubectl describe pod pod_name
+- Kubectl logs pods_name (get logs of pod)
+
+Port forwarding for pod 
+- Kubectl port-forward pod_name 4444:4444
+- Check on which port container is running example to find out 4444
+- Kubectl describe pod pod_name 
+- kubectl port-forward pod-demo 9000:80
+- Access  - http://localhost:9000/
+
+
+Minikube ssh - to go into worker node 
+
+
+Image Pull policy 
+- Alyways - default - always pull from hub
+- Never - use from cache
+- IfNotPresent - pull only if not present
+
+Execute into pods 
+- Kubectl exec -it pod_name — bash
+- Kubectl exec -it  -c container_name pod_name bash (in case of multicontainer and want to exec into 1) 
+- e.g kubectl exec exercise-metadata -it -- bash 
+-  kubectl exec exercise-metadata -it -- sh
+
+
+Kube Config 
+
+- cat ~/.kube/config 
+
+
+Deployment 
+- Kubectl get deploy
+
+Replicasets :
+- What happens when pod is deleted 
+- Replicates ensures that specified number of pod are running at any given time
+- Scaling 
+- Reliability
+- It keep on watching pods and whenever some pods goes down it ups another pod
+- Control manager take cares of bringing up new pods when 1 pod goes down it has replication set manger to manage replica
+- Reconciliation control loop 
+- - Current state  - observe, act - Desire State
+
+
+- Kubectl explain replicatsets 
+- Kubectl edit rs replicaset_name (if you want to modify anything in replica)
+- Kubectl get rs replica_name -o yaml
+- Kubectl scale rs replicaset_name —replica 4 (count , if we want to scale replicas)
+- Kubectl get rs
+- 
+
+
+Health Check Probs for Container :
+
+- Readiness probe
+- livenessProbe -  pods get restarted if 3 connective failures of pods
+- kubectl explain pods.spec.containers.livenessProb
+
+If node does not have enough resources replica sets will be in pending state for pods like if we added replicas: 20 , scheduler will do this work
+
+
+
+Services :
+
+
+- How to access application within cluster and outside cluster ? 
+- Pods are mortal and when they die they are not restructure with same ip
+- An abstract way to expose an application running on a set of pods by reliable network service 
+- Exposes set of pods over network with reliable IP Port and  DNS
+- Associated with pods using matching labels
+- Services also used for inter pods (microservices) communication
+- Services Type 
+-   clusterIP : exposes services on cluster-internal IP only reachable within cluster
+-   NodePort : exposes the service on each Nodes IP at static port  allows to reach from outside cluster by requesting nodeIP: nodePort
+-   LoadBalancer : Exposes the service externally using a cloud provers load balancer 
+
+  - kubectl get svc
+  - kubectl describe svc service_name
+  - 
+
+Deployments : 
+
+
+- 
+
+

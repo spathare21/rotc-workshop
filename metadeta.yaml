@@ -6,4 +6,3 @@ spec:
  containers:
   - name: exercise2
     image: sunitparekh/metadata:v1.0
- 

@@ -1,0 +1,30 @@
+ReplicaSets :
+
+replicaSetMetadata.yaml
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+ name: metadata-rs
+spec:
+ replicas: 2
+ selector:
+  matchLabels:
+   app: metadata-pod
+ template:
+  metadata: 
+   labels:
+    app: metadata-pod   
+  spec:
+   containers:
+    - name: exercise2
+      image: sunitparekh/metadata:v1.0
+
+
+
+- kubectl apply -f replicaSetMetadata.yaml
+- kubectl get rs
+- kubectl get pods
+- kubectl edit rs metadata-rs
+- kubectl delete pod
+- kubectl get pods

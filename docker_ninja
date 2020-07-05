@@ -1,0 +1,87 @@
+Docker Ninja 
+
+- How process id’s are getting assigned in container ?
+- Control groups CGroups , LXC
+- Diff between ADD and COPY
+-  Diff between CMD and Entrypoint https://phoenixnap.com/kb/docker-cmd-vs-entrypoint#:~:text=CMD%20is%20an%20instruction%20that,container%20with%20a%20specific%20executable.
+- 
+
+
+Port forwarding 
+- Docker run -d -p 8080:80 image_name (this will forwards your machine 8080 port to container port 80)
+Get in to container 
+- Docker exec -it container_id bash
+Run command in container 
+-  Docker exec container id command_to_execute
+Inspect docker container
+- Docker inspect container_id
+Docker Commit for images :
+- Docker commit container_name image_name:tag 
+- Docker commit server nginx:custom1.1
+Docker build uses docker commit command internally to build each separate layer while build
+Docker image Layer 
+View docker layers 
+- Docker history image_name
+User layers effectively if there is no change is specific state/layer
+- Example if I have changed only source code it should not affect  my lib/dependancy already install 
+- Copy lib file first and then after that copy remaining files
+User .dockerignore to reduce context size of runtime
+
+—rm flags used to remove container once container stopped. Usually we docker stop and then docker rm right? That is not necessary if pass —rm
+
+Docker volumes 
+
+// create a volume
+docker volume create demo
+
+// list all volumes
+docker volume ls
+
+// list info of volume
+docker inspect demo
+
+// remove a volume
+docker volume rm demo
+
+// attach volume to container
+docker run -it -v my-volume:/data --name my-container ubuntu:latest
+
+// detach volume from container
+docker rm -v <container_sha>
+
+
+
+DOCKER NETWORK
+--------------
+// create a network
+docker network create my_network
+
+// list all network
+docker network ls
+
+// list info of network
+docker network inspect my_network
+
+// remove network
+docker network rm my_network
+
+// connect network
+docker network connect my_network nginx
+
+// disconnect network
+docker network disconnect my_network nginx
+
+Docker Compose: 
+
+Create docker-compose file for go application
+docker-compose up 
+Use / endpoint  to check the service running
+Use /vote endpoint to add vote
+docker-compose down
+
+version: '3'
+services:
+  web:
+    build: .
+  redis:
+    image: "redis:alpine"

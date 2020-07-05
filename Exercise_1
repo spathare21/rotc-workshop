@@ -1,0 +1,33 @@
+K8s Exercise 1 :  
+
+-Create Pod specification for the MetadataService and deploy in K8S cluster.
+    -Either use your image or `sunitparekh/metadata:v1.0`
+- describe pod and see all information about pod
+- Do port forward and see if your application is working fine or check logs. Use /actuator/info endpoint
+- Get logs for the Pod
+- execute into pod and run `ps aux` and check your metadata-service is running
+
+
+
+Ans : 
+
+- Metadata.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+ name: exercise-metadata
+spec:
+ containers:
+  - name: exercise2
+    image: sunitparekh/metadata:v1.0
+
+
+- Kubectl describe pod exercise-metadata
+- Kubectl port-forward exercise-metadata 9090:8080
+- Curl localhost:9090/actuator/info
+- Kubectl logs exercise-metadata
+- kubectl exec exercise-metadata -it -- sh
+- Ps aux
+
+

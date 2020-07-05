@@ -7,7 +7,7 @@ spec:
     - name: meta-config
       image: sunitparekh/metadata:v2.0
       env:
-        - name: MONGO_URL
+        - name: MONGODB_URI
           valueFrom:
             configMapKeyRef:
               name: meta-config

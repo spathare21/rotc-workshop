@@ -206,9 +206,76 @@ Volume :
 - awsElasticBlockStore
  - on the cloud save outage node 
 
- 
+
 
 Config Map and Secrets :
+
+
+
+
+Daemonsets :
+
+- Logs collections 
+- monitoring
+- its kind of deployment its ensures every single node in cluster runs the same pod resources
+- When node is added , a new pod will be started automatically 
+- When node is removed , the pod will not be resheduled on another node 
+
+- kubectl get daemonsets 
+- in single node cluster like minikube it will create only 1 pod 
+- in mutlinode cluster it will create same number pods as number of nodes on each node
+
+
+
+Jobs :
+
+- Creates 1 or mote pod and make sure it terminates 
+- job complete when all pods are terminate
+- Job is nothing but controller over pod
+- backPOffLimit - retries number of times on failuer - and after number off limit failure job will mark as failed  e.g backOffLimit=2 , 1st run and 2 retries total 3 failures 
+
+- kubectl get jobs 
+- kubectl get pods 
+
+
+StatefulSets :
+
+- use for stateful application like anything persist data
+- Challenges without statefulsets 
+ - loes data when container terminated
+ - persistent volume are either shared or fresh every time
+ - identity keeps changin as container come and go
+ - ordering of replica et bootup is not fixed 
+- e.g all above limitations are challenges to mongodb, postgres, elasticSearch, Kafka 
+- 
+
+Headless Service :
+- client in the cluster can address the pod by its hostnmae
+- static ip
+
+
+ - Stable and unique network identifier
+ - stable persistance storage
+ - order gracefull deployment and scaling 
+ - ordered gracefull deletion and termination
+ - order automated rolling updates
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

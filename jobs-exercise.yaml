@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: hello
+          image: busybox
+          args:
+            - /bin/sh
+            - -c 
+            - date; echo Hello from the kubernetes cluster
+      restartPolicy: Never
+  backoffLimit: 2
+
+
+
+  # kubectl apply -f jobs-exercise.yaml
+  # kubectl get jobs 
+  # kubectl get pods 
+  # kubectl logs pod_name      

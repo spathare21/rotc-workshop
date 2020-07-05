@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+              protocol: TCP
+
+
+
+
+# kubectl get nodes
+# kubectl apply -f filename
+# kuebctl get daemonsets
+# kubectl get daemonsets 
+# kubectl get pods
+# kubectl delete daemonsets --all
+

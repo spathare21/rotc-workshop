@@ -5,7 +5,7 @@ metadata:
 spec:
  containers:
   - name: metadata-pod-mongo
-    image: sunitparekh/metadata:v2.0
+    image: sunitparekh/metadata:v1.0
     env: 
      - name: MONGODB_URI
        value: mongodb://mongo/metadata

@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: meta-config
 data:
-  mongo_url: "test_url"
+  mongo_url: "mongodb://mongo/metadata"
